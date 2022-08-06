@@ -10,9 +10,25 @@ import {
   Heading,
   Link,
   VStack,
+  FormControl,
+  FormLabel,
+  useToast,
+  Input,
+  InputGroup
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavLink, useNavigate } from "react-router-dom";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  InputRightElement
+} from '@chakra-ui/react'
+
 
 
 const Links = ["Home"];
@@ -48,29 +64,67 @@ const MyNavLink = ({ link, index }) => {
 };
 
 const Navbar = () => {
-  
+  const toast = useToast()
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   let navigate = useNavigate();
 
-  const connectWallet = async () => {
-    // await initWallet();
-    navigate("/dashboard");
-  };
-
-  
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
 
+
+
   const [show, setShow] = React.useState(false)
   const [show1, setShow1] = React.useState(false)
- 
-  
+  const [password, setPassword] = React.useState("")
+  const [token, setToken] = React.useState("")
+
   const handleClick = () => setShow(!show)
   const handleClick1 = () => setShow1(!show1)
 
-  const signinClicked = ()=>{ 
+  const signinClicked = async () => {
+    if (password.length == 0 || token.length == 0) {
+      toast({
+        title: 'Error!',
+        description: "No value Entered",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+    else {
+      // console.log(password)
+      let result = await fetch("https://safe-chain.vercel.app/user/login", {
+        method: "POST",
+        body: JSON.stringify({
+          "password": password,
+          "token": token
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
 
+      let test = await result.json()
+      if (test.success) {
+        console.log("result", test)
+        navigate("/dashboard");
+      }
+      else {
+        toast({
+          title: 'Error!',
+          description: "Incorrect Password or Secret Key",
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+      }
+     
+    }
   }
+
 
   return (
     <Box px={4}>
@@ -101,24 +155,8 @@ const Navbar = () => {
               {ExternalLinks.map((link, index) =>
                 externalLink({ link, index })
               )}
-              <Button colorScheme="blue" p={4} onClick={connectWallet}>
+              <Button colorScheme="blue" p={4} onClick={onOpen}>
                 Sign In
-              </Button>
-            </HStack>
-          </HStack>
-        </Flex>
-      </Container>
-
-      {isOpen ? (
-        <Box pb={4} display={{ md: "none" }}>
-          <VStack as={"nav"} spacing={4} alignItems="left">
-            {Links.map((link, index) => (
-              <MyNavLink key={link} link={link} index={index} />
-            ))}
-            {ExternalLinks.map((link, index) => externalLink({ link, index }))}
-            <Box>
-              <Button colorScheme="blue" p={4} onClick={connectWallet}>
-                Connect Wallet
               </Button>
               <Modal
                 initialFocusRef={initialRef}
@@ -135,11 +173,11 @@ const Navbar = () => {
                       <FormLabel>Master Password</FormLabel>
                       <InputGroup size='md'>
                         <Input
+                          ref={initialRef}
+                          placeholder='Enter Password Here'
+                          type={show ? 'text' : 'password'}
                           value={password}
                           onChange={(e) => { setPassword(e.target.value) }}
-                          pr='4.5rem'
-                          type={show ? 'text' : 'password'}
-                          placeholder='Enter password'
                         />
                         <InputRightElement width='4.5rem'>
                           <Button h='1.75rem' size='sm' onClick={handleClick}>
@@ -150,36 +188,43 @@ const Navbar = () => {
                     </FormControl>
 
                     <FormControl mt={4}>
-                      <FormLabel>Renter Master Password</FormLabel>
-                      <InputGroup size='md'>
-                        <Input
-                          value={confirmpassword}
-                          onChange={(e) => { setConfirmPassword(e.target.value) }}
-                          pr='4.5rem'
-                          type={show1 ? 'text' : 'password'}
-                          placeholder='Re-Enter password'
-                        />
-                        <InputRightElement width='4.5rem'>
-                          <Button h='1.75rem' size='sm' onClick={handleClick1}>
-                            {show1 ? 'Hide' : 'Show'}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
+                      <FormLabel> Enter Secret Key</FormLabel>
+                      <Input
+                        placeholder='Enter Here'
+                        value={token}
+                        onChange={(e) => { setToken(e.target.value) }}
+                      />
                     </FormControl>
                   </ModalBody>
 
                   <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={savePassword}>
-                      Submit
+                    <Button colorScheme='blue' mr={3} onClick={signinClicked}>
+                      Sign In
                     </Button>
                     <Button onClick={onClose}>Cancel</Button>
                   </ModalFooter>
                 </ModalContent>
               </Modal>
+            </HStack>
+          </HStack>
+        </Flex>
+      </Container>
+
+      {/* {isOpen ? (
+        <Box pb={4} display={{ md: "none" }}>
+          <VStack as={"nav"} spacing={4} alignItems="left">
+            {Links.map((link, index) => (
+              <MyNavLink key={link} link={link} index={index} />
+            ))}
+            {ExternalLinks.map((link, index) => externalLink({ link, index }))}
+            <Box>
+              <Button colorScheme="blue" p={4} onClick={connectWallet}>
+                Connect Wallet
+              </Button>
             </Box>
           </VStack>
         </Box>
-      ) : null}
+      ) : null} */}
     </Box>
   );
 };

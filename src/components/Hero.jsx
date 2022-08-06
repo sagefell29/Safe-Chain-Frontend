@@ -15,7 +15,6 @@ import {
   useClipboard,
   Text
 } from "@chakra-ui/react";
-import axios from "axios"
 
 import {
   FormControl,
