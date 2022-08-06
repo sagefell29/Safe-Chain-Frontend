@@ -62,6 +62,10 @@ const Dashboard = () => {
   const [passwordFormVisibility, setPasswordFormVisibility] = React.useState(false)
   const handleClick1 = () => setShow1(!show1)
 
+  const passwordSubmitClicked = async () => {
+    
+  }
+
   return (
     <>
       <Sidebar>
@@ -143,6 +147,7 @@ const Dashboard = () => {
                 <Button
                   colorScheme="blue"
                   mt={4}
+                  onClick={passwordSubmitClicked}
                 >
                   Submit
                 </Button>
@@ -170,7 +175,7 @@ const Dashboard = () => {
                     mb='0.8rem'
                     placeholder='Expiry Date in MM/YY Format'
                   />
-                  
+
                   <FormLabel mt='0.8rem'>Enter Credit Card Holder Name</FormLabel>
                   <Input
                     value={creditholder}

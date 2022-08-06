@@ -112,6 +112,7 @@ const Navbar = () => {
       let test = await result.json()
       if (test.success) {
         console.log("result", test)
+        sessionStorage.setItem("secretKey",test.token)
         navigate("/dashboard");
       }
       else {
