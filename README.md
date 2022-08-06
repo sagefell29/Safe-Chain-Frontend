@@ -42,7 +42,7 @@ In order to get a copy of the project you will require you to have Node.js (v14+
 ### Installation
 Open the terminal in the folder in which you wish to clone the repository and enter the following command:
 ``` 
-git clone https://github.com/alok27a/URL-Shortner.git
+git clone https://github.com/alok27a/cognition-frontend.git
 cd cognition-frontend
 ```
 Install all the NPM packages:
