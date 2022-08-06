@@ -18,10 +18,6 @@ Our core user is basically the everyday common man who wants to ensure basic saf
 
 Our core user needs a secure, decentralized platform to store their important, personal data. A simple, sleek UI paired with a secure, robust back-end that uses an extra layer of encryption. should meet the average user's needs.
 
-## <img src="https://cdn-icons-png.flaticon.com/512/427/427735.png" width="32" height="32">  Conclusion
-
-In conclusion, we hope to create a software that stores your most important personal data in a manner such that no one can access it. Through this venture, we not only provide our users with the comfort and security of absolute protection, but also give them control over the most important commodity of today's times, i.e. their data. Ours is among the most innovative approaches to one of the most challenging questions of our times.
-
 ## <img src="https://techstackapps.com/media/2019/11/TechStackApps-logo-icon.png" width="32" height="32"> Tech Stack
 
 * React.js
@@ -76,3 +72,7 @@ Contributions are what make the open source community such an amazing place to b
 
 
 ![cover](https://user-images.githubusercontent.com/73957024/183240643-b59a22c8-937f-4fa3-8d2b-3a166844c64b.png)
+
+## <img src="https://cdn-icons-png.flaticon.com/512/427/427735.png" width="32" height="32">  Conclusion
+
+In conclusion, we hope to create a software that stores your most important personal data in a manner such that no one can access it. Through this venture, we not only provide our users with the comfort and security of absolute protection, but also give them control over the most important commodity of today's times, i.e. their data. Ours is among the most innovative approaches to one of the most challenging questions of our times.
