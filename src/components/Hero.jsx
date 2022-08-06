@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Stack,
   Heading,
@@ -35,7 +36,7 @@ import {
   ModalCloseButton,
   InputRightElement
 } from '@chakra-ui/react'
-
+import { CopyIcon } from '@chakra-ui/icons'
 import { useNavigate } from "react-router-dom";
 
 import Security from "../assets/security.svg";
@@ -50,6 +51,7 @@ const Hero = () => {
   const [confirmpassword, setConfirmPassword] = React.useState("")
   let [value, setValue] = React.useState('')
   const { onCopy, hasCopied } = useClipboard(value);
+  const[registerLoading, setRegisterLoading] = React.useState(false)
 
   let navigate = useNavigate();
 
@@ -72,12 +74,13 @@ const Hero = () => {
         title: 'Error!',
         description: "Password and Re-Enter pasword not matched",
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       })
     }
     else {
       // console.log(password)
+      setRegisterLoading(true)
       let result = await fetch("https://safe-chain.vercel.app/user/create", {
         method: "POST",
         body: JSON.stringify({
@@ -89,17 +92,31 @@ const Hero = () => {
           "Access-Control-Allow-Origin": "*"
         }
       })
-
+      setRegisterLoading(false)
       let test = await result.json()
+      if(test.success){
+        toast({
+          title: 'Success!',
+          description: test.message,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: 'Eror!',
+          description: test.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
       setValue(test.token)
       setToken(true)
       console.log("result", test)
     }
   }
 
-  const connectWallet = async () => {
-    navigate("/dashboard");
-  };
 
   return (
     <Container maxW="container.xl" bg="blue.50">
@@ -164,7 +181,7 @@ const Hero = () => {
                   </ModalBody>
 
                   <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={savePassword}>
+                    <Button colorScheme='blue' mr={3} onClick={savePassword} isLoading={registerLoading} loadingText="Submitting">
                       Submit
                     </Button>
                     <Button onClick={onClose}>Cancel</Button>
@@ -183,7 +200,7 @@ const Hero = () => {
                     <br></br>
                     {value}
                     <br></br>
-                    <Button onClick={onCopy} ml={2}>
+                    <Button onClick={onCopy} ml={2} leftIcon={<CopyIcon/>} colorScheme='blue'>
                       {hasCopied ? "Copied" : "Copy"}
                     </Button>
                   </Box>}

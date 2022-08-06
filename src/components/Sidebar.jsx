@@ -109,7 +109,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       />
       <Flex alignItems="center" gap={2}>
         <Heading as="h4" size="md">
-          dpassword
+          SafeChain
         </Heading>
       </Flex>
     </Flex>

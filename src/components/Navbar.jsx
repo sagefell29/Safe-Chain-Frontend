@@ -78,6 +78,7 @@ const Navbar = () => {
   const [show1, setShow1] = React.useState(false)
   const [password, setPassword] = React.useState("")
   const [token, setToken] = React.useState("")
+  const [loginLoading, setLoginLoading] = React.useState(false)
 
   const handleClick = () => setShow(!show)
   const handleClick1 = () => setShow1(!show1)
@@ -94,6 +95,7 @@ const Navbar = () => {
     }
     else {
       // console.log(password)
+      setLoginLoading(true)
       let result = await fetch("https://safe-chain.vercel.app/user/login", {
         method: "POST",
         body: JSON.stringify({
@@ -106,7 +108,7 @@ const Navbar = () => {
           "Access-Control-Allow-Origin": "*"
         }
       })
-
+      setLoginLoading(false)
       let test = await result.json()
       if (test.success) {
         console.log("result", test)
@@ -155,7 +157,7 @@ const Navbar = () => {
               {ExternalLinks.map((link, index) =>
                 externalLink({ link, index })
               )}
-              <Button colorScheme="blue" p={4} onClick={onOpen}>
+              <Button colorScheme="blue" p={4} onClick={onOpen} >
                 Sign In
               </Button>
               <Modal
@@ -198,7 +200,7 @@ const Navbar = () => {
                   </ModalBody>
 
                   <ModalFooter>
-                    <Button colorScheme='blue' mr={3} onClick={signinClicked}>
+                    <Button colorScheme='blue' mr={3} onClick={signinClicked} isLoading={loginLoading} loadingText="Signing In">
                       Sign In
                     </Button>
                     <Button onClick={onClose}>Cancel</Button>
