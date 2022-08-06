@@ -75,7 +75,7 @@ const Navbar = () => {
           >
             <HStack>
               <Heading as="h4" size="md">
-                DPASSWORD
+                SafeChain
               </Heading>
             </HStack>
             <HStack spacing={8} display={{ base: "none", md: "flex" }}>

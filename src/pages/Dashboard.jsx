@@ -13,30 +13,27 @@ import {
 import Sidebar from "../components/Sidebar";
 import Card from "../components/Card";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { getPatientRequests } from "../wallet";
-import { ethers } from "ethers";
+
 
 const Dashboard = () => {
   const [pcpContract, setPcpContract] = useState(null);
   const [account, setAccount] = useState();
-  const toast = useToast();
+  // useEffect(() => {
+  //   const fetchAddress = async () => {
+  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //     const data = provider.send("eth_requestAccounts", []);
+  //     return await data;
+  //   };
+  //   fetchAddress().then((result) => {
+  //     setAccount(result);
+  //   });
+  // }, [pcpContract]);
 
-  useEffect(() => {
-    const fetchAddress = async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const data = provider.send("eth_requestAccounts", []);
-      return await data;
-    };
-    fetchAddress().then((result) => {
-      setAccount(result);
-    });
-  }, [pcpContract]);
-
-  const abbreviateAddress = (address) => {
-    return (
-      address.substring(0, 6) + "..." + address.substring(address.length - 4)
-    );
-  };
+  // const abbreviateAddress = (address) => {
+  //   return (
+  //     address.substring(0, 6) + "..." + address.substring(address.length - 4)
+  //   );
+  // };
 
   return (
     <>
@@ -55,7 +52,7 @@ const Dashboard = () => {
             <FormControl>
               <FormLabel>Input Your  Contract Address</FormLabel>
               <Input
-                placeholder="Contract Address"
+                placeholder="Enter Something"
                 maxW="lg"
                 onChange={(e) => {
                   setPcpContract(e.target.value);
@@ -63,17 +60,6 @@ const Dashboard = () => {
               />
             </FormControl>
             <Button
-              onClick={() => {
-                getPatientRequests(pcpContract).then((res) => {
-                  toast({
-                    title: "Contract Address successfully added",
-                    description: "You can now view your patient requests",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                  });
-                });
-              }}
               colorScheme="blue"
               mt={4}
             >

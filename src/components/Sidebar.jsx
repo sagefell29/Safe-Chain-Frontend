@@ -30,7 +30,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <Flex alignItems="center" gap={2}>
           <Link as={NavLink} to="/">
             <Heading as="h4" size="md">
-              DPASSWORD
+              SafeChain
             </Heading>
           </Link>
         </Flex>
