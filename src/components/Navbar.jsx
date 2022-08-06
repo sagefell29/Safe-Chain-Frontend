@@ -48,6 +48,7 @@ const MyNavLink = ({ link, index }) => {
 };
 
 const Navbar = () => {
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
   let navigate = useNavigate();
 
@@ -55,6 +56,21 @@ const Navbar = () => {
     // await initWallet();
     navigate("/dashboard");
   };
+
+  
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
+
+  const [show, setShow] = React.useState(false)
+  const [show1, setShow1] = React.useState(false)
+ 
+  
+  const handleClick = () => setShow(!show)
+  const handleClick1 = () => setShow1(!show1)
+
+  const signinClicked = ()=>{ 
+
+  }
 
   return (
     <Box px={4}>
@@ -86,7 +102,7 @@ const Navbar = () => {
                 externalLink({ link, index })
               )}
               <Button colorScheme="blue" p={4} onClick={connectWallet}>
-                Sign Up
+                Sign In
               </Button>
             </HStack>
           </HStack>
@@ -104,6 +120,62 @@ const Navbar = () => {
               <Button colorScheme="blue" p={4} onClick={connectWallet}>
                 Connect Wallet
               </Button>
+              <Modal
+                initialFocusRef={initialRef}
+                finalFocusRef={finalRef}
+                isOpen={isOpen}
+                onClose={onClose}
+              >
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Create your account</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody pb={6}>
+                    <FormControl>
+                      <FormLabel>Master Password</FormLabel>
+                      <InputGroup size='md'>
+                        <Input
+                          value={password}
+                          onChange={(e) => { setPassword(e.target.value) }}
+                          pr='4.5rem'
+                          type={show ? 'text' : 'password'}
+                          placeholder='Enter password'
+                        />
+                        <InputRightElement width='4.5rem'>
+                          <Button h='1.75rem' size='sm' onClick={handleClick}>
+                            {show ? 'Hide' : 'Show'}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                      <FormLabel>Renter Master Password</FormLabel>
+                      <InputGroup size='md'>
+                        <Input
+                          value={confirmpassword}
+                          onChange={(e) => { setConfirmPassword(e.target.value) }}
+                          pr='4.5rem'
+                          type={show1 ? 'text' : 'password'}
+                          placeholder='Re-Enter password'
+                        />
+                        <InputRightElement width='4.5rem'>
+                          <Button h='1.75rem' size='sm' onClick={handleClick1}>
+                            {show1 ? 'Hide' : 'Show'}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
+                    </FormControl>
+                  </ModalBody>
+
+                  <ModalFooter>
+                    <Button colorScheme='blue' mr={3} onClick={savePassword}>
+                      Submit
+                    </Button>
+                    <Button onClick={onClose}>Cancel</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </Box>
           </VStack>
         </Box>
