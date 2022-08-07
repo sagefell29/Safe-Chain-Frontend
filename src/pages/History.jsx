@@ -16,9 +16,9 @@ const History = () => {
 
   return (
     <Sidebar>
-      <Breadcrumbs links={["Home", "Dashboard", "History"]} />
+      <Breadcrumbs links={["Home", "Dashboard", "Credit Card"]} />
       <Heading mt={8} ml={4}>
-        History
+        Saved Credit Cards
       </Heading>
       <Stack p={4} gap={3}>
         <Wrap spacing={8}>

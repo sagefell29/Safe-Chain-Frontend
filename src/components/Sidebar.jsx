@@ -11,7 +11,7 @@ import {
   useDisclosure,
   Heading,
 } from "@chakra-ui/react";
-import { FaHome, FaUserClock, FaHistory, FaAngleDoubleRight } from "react-icons/fa";
+import { FaHome, FaAngleDoubleRight, FaCcVisa, FaKey } from "react-icons/fa";
 
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
@@ -19,8 +19,8 @@ import { NavLink } from "react-router-dom";
 const LinkItems = [
   { name: "All Items", icon: FaAngleDoubleRight, path: "/dashboard/allitem" },
   { name: "Home", icon: FaHome, path: "/dashboard" },
-  { name: "Pending Requests", icon: FaUserClock, path: "/dashboard/pending" },
-  { name: "History", icon: FaHistory, path: "/dashboard/history" },
+  { name: "Passwords", icon: FaKey, path: "/dashboard/passwords" },
+  { name: "Credit Card", icon: FaCcVisa, path: "/dashboard/creditcards" },
 ];
 
 const SidebarContent = ({ onClose, ...rest }) => {

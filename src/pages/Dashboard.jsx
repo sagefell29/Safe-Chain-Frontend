@@ -9,34 +9,21 @@ import {
   Button,
   useToast,
   InputRightElement,
-  InputGroup
+  InputGroup,
+  toast
 } from "@chakra-ui/react";
 import { Textarea } from '@chakra-ui/react'
 import Sidebar from "../components/Sidebar";
 import Card from "../components/Card";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { Select } from '@chakra-ui/react'
+import { useNavigate } from "react-router-dom";
 
 
 const Dashboard = () => {
-  // const [pcpContract, setPcpContract] = useState(null);
-  // const [account, setAccount] = useState();
-  // useEffect(() => {
-  //   const fetchAddress = async () => {
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     const data = provider.send("eth_requestAccounts", []);
-  //     return await data;
-  //   };
-  //   fetchAddress().then((result) => {
-  //     setAccount(result);
-  //   });
-  // }, [pcpContract]);
 
-  // const abbreviateAddress = (address) => {
-  //   return (
-  //     address.substring(0, 6) + "..." + address.substring(address.length - 4)
-  //   );
-  // };
+  const [savingLoading, setSavingLoading] = React.useState(false)
+  const toast = useToast();
 
   // PASSWORD
   const [selectpassword, setSelectPassword] = React.useState("")
@@ -56,14 +43,64 @@ const Dashboard = () => {
   const [creditbank, setCreditBank] = React.useState("")
   const [creditholder, setCreditHolder] = React.useState("")
   const [creditCardLoading, setCreditCardLoading] = React.useState(false)
-
-
-
   const [passwordFormVisibility, setPasswordFormVisibility] = React.useState(false)
+  const navigate = useNavigate()
   const handleClick1 = () => setShow1(!show1)
-
+  useEffect(()=>{
+    if(!sessionStorage.getItem('secretKey')){
+      navigate('/')
+    }
+  },[])
   const passwordSubmitClicked = async () => {
-    
+    let token = sessionStorage.getItem("secretKey")
+    if (token == null) {
+      toast({
+        title: 'Error!',
+        description: "Try To Login Again",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+    else {
+      setSavingLoading(true)
+      let result = await fetch("https://safe-chain.vercel.app/password/add", {
+        method: "POST",
+        body: JSON.stringify({
+          "name": websitename,
+          "website": websiteurl,
+          "username": username,
+          "password": password,
+          "description": description,
+          "token": token
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      setSavingLoading(false)
+      let test = await result.json()
+      if (test.success) {
+        toast({
+          title: 'Success!',
+          description: "Successfully Saved the Details",
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+      else {
+        toast({
+          title: 'Error!',
+          description: "Some Error Occured Please Try Again Later",
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    }
   }
 
   return (
@@ -148,6 +185,8 @@ const Dashboard = () => {
                   colorScheme="blue"
                   mt={4}
                   onClick={passwordSubmitClicked}
+                  isLoading={savingLoading} 
+                  loadingText="Saving Details"
                 >
                   Submit
                 </Button>

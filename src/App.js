@@ -16,9 +16,9 @@ const App = () => {
           <Route exact path="/" element={<Home />} />
           <Route exact path="dashboard">
             <Route index element={<Dashboard />} />
-            <Route path="pending" element={<Pending />} />
+            <Route path="passwords" element={<Pending />} />
             <Route path="allitem" element={<AllItems />} />
-            <Route path="history" element={<History />} />
+            <Route path="creditcards" element={<History />} />
           </Route>
         </Routes>
       </BrowserRouter>
