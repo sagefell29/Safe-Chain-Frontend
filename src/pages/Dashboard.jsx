@@ -45,12 +45,15 @@ const Dashboard = () => {
   const [creditCardLoading, setCreditCardLoading] = React.useState(false)
   const [passwordFormVisibility, setPasswordFormVisibility] = React.useState(false)
   const navigate = useNavigate()
+
   const handleClick1 = () => setShow1(!show1)
-  useEffect(()=>{
-    if(!sessionStorage.getItem('secretKey')){
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('secretKey')) {
       navigate('/')
     }
-  },[])
+  }, [])
+
   const passwordSubmitClicked = async () => {
     let token = sessionStorage.getItem("secretKey")
     if (token == null) {
@@ -102,6 +105,59 @@ const Dashboard = () => {
       }
     }
   }
+
+  const creditcardSubmitClicked = async () => {
+    let token = sessionStorage.getItem("secretKey")
+    if (token == null) {
+      toast({
+        title: 'Error!',
+        description: "Try To Login Again",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+    }
+    else {
+      setSavingLoading(true)
+      let result = await fetch("https://safe-chain.vercel.app/creditcard/add", {
+        method: "POST",
+        body: JSON.stringify({
+          "number": creditcard,
+          "expiry_date": expirydate,
+          "holder_name": creditholder,
+          "cvv": creditcardcvv,
+          "bank_name": creditbank,
+          "token": token
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'Accept': 'application/json',
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      setSavingLoading(false)
+      let test = await result.json()
+      if (test.success) {
+        toast({
+          title: 'Success!',
+          description: "Successfully Saved the Details",
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+      else {
+        toast({
+          title: 'Error!',
+          description: "Some Error Occured Please Try Again Later",
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
+    }
+  }
+
 
   return (
     <>
@@ -185,7 +241,7 @@ const Dashboard = () => {
                   colorScheme="blue"
                   mt={4}
                   onClick={passwordSubmitClicked}
-                  isLoading={savingLoading} 
+                  isLoading={savingLoading}
                   loadingText="Saving Details"
                 >
                   Submit
@@ -247,6 +303,9 @@ const Dashboard = () => {
                   <Button
                     colorScheme="blue"
                     mt={4}
+                    onClick={creditcardSubmitClicked}
+                    isLoading={savingLoading}
+                    loadingText="Saving Details"
                   >
                     Submit
                   </Button>

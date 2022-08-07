@@ -8,11 +8,33 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import { requestArray } from "../wallet";
 
 const History = () => {
-  const [transactions, setTransactions] = useState([]);
+
+  const [creditcard, setCreditCard] = useState([])
+
+  const getCreditcardData = async () => {
+    let token = sessionStorage.getItem("secretKey")
+
+    const resp = await fetch("https://safe-chain.vercel.app/creditcard/get", {
+      method: "POST",
+      body: JSON.stringify({
+        "token": token
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
+    const tes = await resp.json()
+    setUserPassword(tes.data);
+    // console.log(userpassword)
+    console.log(tes)
+
+  }
 
   useEffect(() => {
-    setTransactions(requestArray);
-  }, [transactions]);
+    getCreditcardData()
+  }, []);
 
   return (
     <Sidebar>
@@ -22,30 +44,7 @@ const History = () => {
       </Heading>
       <Stack p={4} gap={3}>
         <Wrap spacing={8}>
-          {transactions.map((transaction, index) => {
-            if (transaction[9] === false) {
-              return (
-                <TransferCard
-                  bobo={index}
-                  key={index}
-                  pcp={transaction[1]}
-                  pcpSpecialty={transaction[2]}
-                  pcpAddress={transaction[0]}
-                  pcpEmail={transaction[3]}
-                  requester={transaction[5]}
-                  requesterAddress={transaction[4]}
-                  requesterSpecialty={transaction[6]}
-                  requesterEmail={transaction[7]}
-                  time={moment(
-                    new Date(
-                      +new Date() - Math.floor(Math.random() * 10000000000)
-                    )
-                  ).format("llll")}
-                  buttonTF={false}
-                />
-              );
-            }
-          }) || <Text>No Pending Requests</Text>}
+
         </Wrap>
       </Stack>
     </Sidebar>

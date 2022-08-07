@@ -49,7 +49,7 @@ const Pending = () => {
           {userpassword.length === 0 ? <Text>No Passwords Found</Text> : userpassword.map((currelem) => {
             return (
               <>
-                <Box w="300px" rounded="20px"
+                <Box w="220px" rounded="15px"
                   overflow="hidden" bg="white" mt={10}>
                   <Box p={5}>
                     <Stack align="center">
