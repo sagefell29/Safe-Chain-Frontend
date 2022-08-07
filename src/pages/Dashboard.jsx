@@ -290,13 +290,13 @@ const Dashboard = () => {
                   />
 
 
-                  <FormLabel mt='0.8rem'>Enter Credit Card Bank Name</FormLabel>
+                  <FormLabel mt='0.8rem'>Enter Credit Card Type</FormLabel>
                   <Input
                     value={creditbank}
                     onChange={(e) => { setCreditBank(e.target.value) }}
                     pr='4.5rem'
                     mb='0.8rem'
-                    placeholder='Bank Name'
+                    placeholder='Credit Card Type'
                   />
 
 

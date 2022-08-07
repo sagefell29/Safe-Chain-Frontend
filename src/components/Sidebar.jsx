@@ -17,7 +17,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 
 const LinkItems = [
-  { name: "All Items", icon: FaAngleDoubleRight, path: "/dashboard/allitem" },
+  // { name: "All Items", icon: FaAngleDoubleRight, path: "/dashboard/allitem" },
   { name: "Home", icon: FaHome, path: "/dashboard" },
   { name: "Passwords", icon: FaKey, path: "/dashboard/passwords" },
   { name: "Credit Card", icon: FaCcVisa, path: "/dashboard/creditcards" },
