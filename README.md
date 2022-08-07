@@ -115,27 +115,17 @@ In order to get a copy of the project you will require you to have Node.js (v14+
 ### Installation
 Open the terminal in the folder in which you wish to clone the repository and enter the following command:
 ``` 
-git clone https://github.com/prasoonsoni/Safe-Chain.git
-cd Safe-Chain
+git clone https://github.com/prasoonsoni/Safe-Chain-Frontend.git
+cd Safe-Chain-Frontend
 ```
 Install all the NPM packages:
 ```
 npm i
 ```
-In order to run the backend server:
-```
-npm i -D nodemon (One time installation)
-npx nodemon index.js
-```
 In order to run the frontend:
 ```
 npm run start
 ```
-
-> **Note that you will have to add your own `.env` file at the root directory and add your own environment variables for the project to build.**
-
-Following are the environment variables used for backend:
-- `JWT_SECRET_KEY` - SecretKey for Json Web Token
 
 <!-- CONTRIBUTING -->
 ## <img src="https://hpe-developer-portal.s3.amazonaws.com/uploads/media/2020/3/git-icon-1788c-1590702885345.png" width=32 height=32> Contributing
