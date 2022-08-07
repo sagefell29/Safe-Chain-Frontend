@@ -16,7 +16,9 @@ const CreditCard = (props) => {
     }
     return (
         <Box
-            onClick={cardFlip}>
+            onMouseEnter={cardFlip}
+            onMouseLeave = {cardFlip}
+            >
             <Cards
                 cvc={props.cvc}
                 expiry={props.expiry}
