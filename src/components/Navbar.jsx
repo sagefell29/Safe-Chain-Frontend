@@ -28,6 +28,7 @@ import {
   ModalCloseButton,
   InputRightElement
 } from '@chakra-ui/react'
+import logo from '../assets/cover.png'
 
 
 
@@ -112,7 +113,7 @@ const Navbar = () => {
       let test = await result.json()
       if (test.success) {
         console.log("result", test)
-        sessionStorage.setItem("secretKey",test.token)
+        sessionStorage.setItem("secretKey", test.token)
         navigate("/dashboard");
       }
       else {
@@ -124,7 +125,7 @@ const Navbar = () => {
           isClosable: true,
         })
       }
-     
+
     }
   }
 
@@ -147,9 +148,7 @@ const Navbar = () => {
             mx={{ base: "auto", md: 0 }}
           >
             <HStack>
-              <Heading as="h4" size="md">
-                SafeChain
-              </Heading>
+              <img src={logo} width='40%'/>
             </HStack>
             <HStack spacing={8} display={{ base: "none", md: "flex" }}>
               {Links.map((link, index) => (

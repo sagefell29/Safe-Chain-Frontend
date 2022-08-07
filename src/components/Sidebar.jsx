@@ -12,6 +12,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { FaHome, FaAngleDoubleRight, FaCcVisa, FaKey } from "react-icons/fa";
+import logo from '../assets/cover.png'
 
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
@@ -29,9 +30,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Flex alignItems="center" gap={2}>
           <Link as={NavLink} to="/">
-            <Heading as="h4" size="md">
-              SafeChain
-            </Heading>
+            <img src={logo}  height={100} />
           </Link>
         </Flex>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />

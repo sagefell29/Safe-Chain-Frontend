@@ -179,7 +179,7 @@ const Dashboard = () => {
                 onChange={(categ) => { setCateg(categ.target.value) }}
                 id="category" name="category" value={categ}>
                 <option value='password'>Password</option>
-                <option value='creditcard'>Credit Card</option>
+                <option value='creditcard'>Card</option>
               </Select>
 
               {/* PASSWORD CATEGORY FORM */}
@@ -253,13 +253,13 @@ const Dashboard = () => {
               {/* CREDIT CARD FORM DETAILS */}
               {categ === 'creditcard' &&
                 <>
-                  <FormLabel mt='0.8rem'>Enter Credit Card Details</FormLabel>
+                  <FormLabel mt='0.8rem'>Enter Card Number</FormLabel>
                   <Input
                     value={creditcard}
                     onChange={(e) => { setCreditCard(e.target.value) }}
                     pr='4.5rem'
                     mb='0.8rem'
-                    placeholder='Credit Card Details'
+                    placeholder='Card Number'
                   />
 
                   <FormLabel mt='0.8rem'>Enter Expiry Date</FormLabel>
@@ -271,7 +271,7 @@ const Dashboard = () => {
                     placeholder='Expiry Date in MM/YY Format'
                   />
 
-                  <FormLabel mt='0.8rem'>Enter Credit Card Holder Name</FormLabel>
+                  <FormLabel mt='0.8rem'>Enter Card Holder Name</FormLabel>
                   <Input
                     value={creditholder}
                     onChange={(e) => { setCreditHolder(e.target.value) }}
@@ -280,7 +280,7 @@ const Dashboard = () => {
                     placeholder='Holder Name'
                   />
 
-                  <FormLabel mt='0.8rem'>Enter CVV of Credit Card</FormLabel>
+                  <FormLabel mt='0.8rem'>Enter CVV of Card</FormLabel>
                   <Input
                     value={creditcardcvv}
                     onChange={(e) => { setCreditCardCVV(e.target.value) }}
@@ -290,13 +290,13 @@ const Dashboard = () => {
                   />
 
 
-                  <FormLabel mt='0.8rem'>Enter Credit Card Type</FormLabel>
+                  <FormLabel mt='0.8rem'>Enter Card Type</FormLabel>
                   <Input
                     value={creditbank}
                     onChange={(e) => { setCreditBank(e.target.value) }}
                     pr='4.5rem'
                     mb='0.8rem'
-                    placeholder='Credit Card Type'
+                    placeholder='Credit or Debit'
                   />
 
 
